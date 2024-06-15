@@ -1,4 +1,4 @@
-// app/insearch.tsx
+// app/insearch.tsx.
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';

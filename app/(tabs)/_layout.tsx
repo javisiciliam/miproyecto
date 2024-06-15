@@ -1,10 +1,9 @@
 // app/_layout.tsx
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { AntDesign, Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -20,7 +19,7 @@ export default function TabLayout() {
         options={{
           title: 'Explora',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name="search" color={color} />
+            <AntDesign name="search1" size={24} color={color} />
           ),
         }}
       />
@@ -29,7 +28,7 @@ export default function TabLayout() {
         options={{
           title: 'Favoritos',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name="heart" color={color} />
+            <AntDesign name="hearto" size={24} color={color} />
           ),
         }}
       />
@@ -38,7 +37,7 @@ export default function TabLayout() {
         options={{
           title: 'Mensajes',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name="mail" color={color} />
+            <AntDesign name="mail" size={24} color={color} />
           ),
         }}
       />
@@ -47,7 +46,7 @@ export default function TabLayout() {
         options={{
           title: 'Perfil',
           tabBarIcon: ({ color, focused }) => (
-            <MaterialCommunityIcons name="account" color={color} />
+            <MaterialCommunityIcons name="account" size={24} color={color} />
           ),
         }}
       />
