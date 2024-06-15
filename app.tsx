@@ -1,60 +1,37 @@
-// App.tsx (en la raíz del proyecto)
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import 'react-native-reanimated';
 
-import ExploreScreen from './app/(tabs)/explore';
-import FavoritesScreen from './app/(tabs)/favorites';
-import MessagesScreen from './app/(tabs)/messages';
-import ProfileScreen from './app/(tabs)/profile';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
 
-function Tabs() {
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  const [loaded] = useFonts({
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  });
+
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'Explora') {
-            iconName = focused ? 'magnifying-glass' : 'magnifying-glass';
-          } else if (route.name === 'Favoritos') {
-            iconName = focused ? 'heart' : 'heart';
-          } else if (route.name === 'Mensajes') {
-            iconName = focused ? 'message1' : 'message1';
-          } else if (route.name === 'Perfil') {
-            iconName = focused ? 'account' : 'account';
-          }
-
-          // Verificar que iconName no sea undefined
-          if (!iconName) {
-            return null;
-          }
-
-          return <Ionicons name={iconName as any} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
-      })}
-    >
-      <Tab.Screen name="Explora" component={ExploreScreen} />
-      <Tab.Screen name="Favoritos" component={FavoritesScreen} />
-      <Tab.Screen name="Mensajes" component={MessagesScreen} />
-      <Tab.Screen name="Perfil" component={ProfileScreen} />
-    </Tab.Navigator>
-  );
-}
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={Tabs} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </ThemeProvider>
   );
 }

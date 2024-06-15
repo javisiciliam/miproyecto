@@ -1,8 +1,10 @@
+// app/_layout.tsx
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,21 +16,11 @@ export default function TabLayout() {
         headerShown: false,
       }}>
       <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarButton: () => null, // Ocultar este tab
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="home" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="explore"
         options={{
           title: 'Explora',
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="search1" size={24} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name="search" color={color} />
           ),
         }}
       />
@@ -36,8 +28,8 @@ export default function TabLayout() {
         name="favorites"
         options={{
           title: 'Favoritos',
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="hearto" size={24} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name="heart" color={color} />
           ),
         }}
       />
@@ -45,8 +37,8 @@ export default function TabLayout() {
         name="messages"
         options={{
           title: 'Mensajes',
-          tabBarIcon: ({ color }) => (
-            <AntDesign name="message1" size={24} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name="mail" color={color} />
           ),
         }}
       />
@@ -54,8 +46,8 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: 'Perfil',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" size={24} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <MaterialCommunityIcons name="account" color={color} />
           ),
         }}
       />
